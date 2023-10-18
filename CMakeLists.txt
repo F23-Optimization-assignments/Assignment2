@@ -5,8 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
-add_executable(Assignment_2 main.cpp
-)
+add_executable(Assignment_2 main.cpp)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -19,14 +18,61 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
+include_directories(src)
 
-add_executable(runUnitTests
+add_executable(
+        identityMatrixTest
+        tests/identityMatrixTest.cpp
+)
+
+target_link_libraries(
+        identityMatrixTest
+        GTest::gtest_main
+)
+
+add_executable(
+        matrixTransposeTest
         tests/matrixTransposeTest.cpp
 )
 
-target_link_libraries(runUnitTests
+target_link_libraries(
+        matrixTransposeTest
+        GTest::gtest_main
+)
+
+add_executable(
+        augmentedMatrixTest
+        tests/augmentedMatrixTest.cpp
+)
+
+target_link_libraries(
+        augmentedMatrixTest
+        GTest::gtest_main
+)
+
+add_executable(
+        inverseMatrixTest
+        tests/inverseMatrixTest.cpp
+)
+
+target_link_libraries(
+        inverseMatrixTest
+        GTest::gtest_main
+)
+
+add_executable(
+        matrixDetTest
+        tests/matrixDetTest.cpp
+)
+
+target_link_libraries(
+        matrixDetTest
         GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(runUnitTests)
+gtest_discover_tests(identityMatrixTest)
+gtest_discover_tests(matrixTransposeTest)
+gtest_discover_tests(augmentedMatrixTest)
+gtest_discover_tests(inverseMatrixTest)
+gtest_discover_tests(matrixDetTest)

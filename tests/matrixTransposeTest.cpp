@@ -14,9 +14,9 @@ TEST(MatrixTransposeTest, RowGreaterThanColumn) {
 
     // When
     input_matrix >> matrix;
-    std::ostringstream actualEntries;
-    actualEntries << matrix.transpose();
-    std::ostringstream expectedEntries(
+    std::ostringstream actual_entries;
+    actual_entries << matrix.transpose();
+    std::ostringstream expected_entries(
             "1 5 9\n"
             "2 6 10\n"
             "3 7 11\n"
@@ -24,7 +24,7 @@ TEST(MatrixTransposeTest, RowGreaterThanColumn) {
     );
 
     // Then
-    ASSERT_EQ(actualEntries.str(), expectedEntries.str());
+    ASSERT_EQ(actual_entries.str(), expected_entries.str());
 }
 
 TEST(MatrixTransposeTest, ColumnGreaterThanRow) {
@@ -39,21 +39,21 @@ TEST(MatrixTransposeTest, ColumnGreaterThanRow) {
 
     // When
     input_matrix >> matrix;
-    std::ostringstream actualEntries;
-    actualEntries << matrix.transpose();
-    std::ostringstream expectedEntries(
+    std::ostringstream actual_entries;
+    actual_entries << matrix.transpose();
+    std::ostringstream expected_entries(
             "1 2 3 4\n"
             "5 6 7 8\n"
             "9 10 11 12\n"
     );
 
     // Then
-    ASSERT_EQ(actualEntries.str(), expectedEntries.str());
+    ASSERT_EQ(actual_entries.str(), expected_entries.str());
 }
 
 TEST(MatrixTransposeTest, EqualRowColumn) {
     // Given
-    Matrix<Fraction> matrix(3, 3);
+    Matrix<Fraction> matrix(3);
     std::istringstream input_matrix(
             "1 5 9\n"
             "2 6 10\n"
@@ -62,14 +62,14 @@ TEST(MatrixTransposeTest, EqualRowColumn) {
 
     // When
     input_matrix >> matrix;
-    std::ostringstream actualEntries;
-    actualEntries << matrix.transpose();
-    std::ostringstream expectedEntries(
+    std::ostringstream actual_entries;
+    actual_entries << matrix.transpose();
+    std::ostringstream expected_entries(
             "1 2 3\n"
             "5 6 7\n"
             "9 10 11\n"
     );
 
     // Then
-    ASSERT_EQ(actualEntries.str(), expectedEntries.str());
+    ASSERT_EQ(actual_entries.str(), expected_entries.str());
 }
