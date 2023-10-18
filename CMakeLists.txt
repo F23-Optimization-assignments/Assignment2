@@ -5,7 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
-add_executable(Assignment_2 main.cpp)
+add_executable(Assignment_2 main.cpp
+)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -19,14 +20,13 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(
-        unit_test
-        ../Assignment_2/test.cc
+add_executable(runUnitTests
+        tests/matrixTransposeTest.cpp
 )
-target_link_libraries(
-        unit_test
+
+target_link_libraries(runUnitTests
         GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(unit_test)
+gtest_discover_tests(runUnitTests)

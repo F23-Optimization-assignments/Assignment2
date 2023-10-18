@@ -133,6 +133,16 @@ public:
     bool operator!=(const Matrix<T>& other) const {
         return *this != other;
     }
+
+    Matrix<T>& transpose() {
+        Matrix<T> temp(columns, rows);
+        for (size_t i = 0; i < columns; i++) {
+            for (size_t j = 0; j < rows; j++) {
+                temp[i][j] = entries[j][i];
+            }
+        }
+        return (*this = temp);
+    }
 };
 
 template<typename T>
@@ -149,9 +159,14 @@ template<typename T>
 std::ostream& operator<<(std::ostream& stream, const Matrix<T>& matrix) {
     for (size_t i = 0; i < matrix.get_rows(); ++i) {
         for (size_t j = 0; j < matrix.get_columns(); ++j) {
+            if (j == matrix.get_columns() - 1) {
+                stream << matrix[i][j];
+                break;
+            }
+
             stream << matrix[i][j] << ' ';
         }
-        stream << ' ';
+        stream << '\n';
     }
     return stream;
 }
