@@ -24,7 +24,7 @@ TEST(InverseMatrixTest, IdentityMatrix) {
     ASSERT_EQ(actual_entries.str(), expected_entries.str());
 }
 
-TEST(InverseMatrixTest, RandomMatrix) {
+TEST(InverseMatrixTest, RandMatrix) {
     // Given
     Matrix<Fraction> matrix(3, 3);
     std::istringstream input_matrix(

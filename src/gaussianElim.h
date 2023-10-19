@@ -91,11 +91,24 @@ private:
         }
     }
 
-    void augmentedToInverse() {
+    void augmented_to_inverse() {
         for (size_t i = 0; i < size; i++) {
             for (size_t j = 0; j < size; j++) {
                 inverse_matrix[i][j] = augmented_matrix[i][j + size];
             }
+        }
+    }
+
+    void reinitialise() {
+        augmented_matrix = get_augmented(original_matrix);
+    }
+
+    void check_criteria() {
+        if (original_matrix.get_rows() != original_matrix.get_columns()) {
+            throw MatrixException("not square augmented matrix provided for inverse process");
+        }
+        if (determinant() == 0) {
+            throw MatrixException("Matrix is singular");
         }
     }
 
@@ -106,29 +119,29 @@ public:
             augmented_matrix(get_augmented(matrix)),
             permutation_matrix(get_identity<T>(matrix.get_rows(), matrix.get_rows())),
             size(matrix.get_rows()) {
-        if (original_matrix.get_rows() != original_matrix.get_columns()) {
-            throw MatrixException("not square augmented matrix provided for inverse process");
-        }
+        check_criteria();
     }
 
     Matrix<T> get_inverse_matrix() {
+        reinitialise();
         direct_way();
         way_back();
         normalisation();
-        augmentedToInverse();
+        augmented_to_inverse();
         return inverse_matrix;
     }
 
     T determinant() {
+        reinitialise();
         Matrix temp(original_matrix);
         int index;
-        int permutationCount = 0;
+        int permutation_count = 0;
         for (size_t j = 0; j < size - 1; j++) {
-            bool permutationFlag = false;
+            bool permutation_flag = false;
             for (size_t i = j + 1; i < size; i++) {
-                if ((index = permutation_index(j, j)) != -1 && !permutationFlag) {
-                    permutationFlag = true;
-                    permutationCount++;
+                if ((index = permutation_index(j, j)) != -1 && !permutation_flag) {
+                    permutation_flag = true;
+                    permutation_count++;
                     permutation_matrix = get_identity<T>(size, size);
                     exchange_rows(j, index);
                     temp = permutation_matrix * temp;
@@ -141,12 +154,23 @@ public:
             }
         }
 
-        T det = permutationCount > 0 ? -1 : 1;
+        T det = permutation_count > 0 ? -1 : 1;
         for (size_t i = 0; i < size; i++) {
             det *= temp[i][i];
         }
 
         return det;
+    }
+
+    std::vector<T> solve(const std::vector<T>& rhs_values) {
+        augmented_matrix = get_augmented_RHS(original_matrix, rhs_values);
+        direct_way();
+        way_back();
+        std::vector<T> solution(size);
+        for (size_t i = 0; i < size; i++) {
+            solution[i] = augmented_matrix[i][size] / augmented_matrix[i][i];
+        }
+        return solution;
     }
 };
 
