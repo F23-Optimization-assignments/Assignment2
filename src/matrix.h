@@ -86,7 +86,7 @@ public:
     }
 
     Matrix<T> &operator-=(const Matrix<T> &other) {
-        check_sum();
+        check_sum(other);
         for (size_t i = 0; i < rows; ++i) {
             for (size_t j = 0; j < columns; ++j) {
                 entries[i][j] -= other[i][j];
@@ -136,14 +136,18 @@ public:
         return *this != other;
     }
 
-    Matrix<T> &transpose() {
+    /**
+     * Method return transposed matrix of original one, do not change something in the original matrix
+     * @return new transposed matrix
+     */
+    Matrix<T> transpose() {
         Matrix<T> temp(columns, rows);
         for (size_t i = 0; i < columns; i++) {
             for (size_t j = 0; j < rows; j++) {
                 temp[i][j] = entries[j][i];
             }
         }
-        return (*this = temp);
+        return temp;
     }
 };
 

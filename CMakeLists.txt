@@ -80,6 +80,16 @@ target_link_libraries(
         GTest::gtest_main
 )
 
+add_executable(
+        interiorPointTest
+        tests/interiorPointTest.cpp
+)
+
+target_link_libraries(
+        interiorPointTest
+        GTest::gtest_main
+)
+
 include(GoogleTest)
 gtest_discover_tests(identityMatrixTest)
 gtest_discover_tests(matrixTransposeTest)
@@ -87,3 +97,4 @@ gtest_discover_tests(augmentedMatrixTest)
 gtest_discover_tests(inverseMatrixTest)
 gtest_discover_tests(matrixDetTest)
 gtest_discover_tests(solveLinearEqTest)
+gtest_discover_tests(interiorPointTest)

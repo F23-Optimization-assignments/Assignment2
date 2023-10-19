@@ -44,4 +44,19 @@ Matrix<T> get_augmented_RHS(Matrix<T>& matrix, const std::vector<T>& rhs_values)
     return augmented_rhs;
 }
 
+template<typename T>
+std::vector<T> multiply(const Matrix<T>& matrix, const std::vector<T>& vector) {
+    size_t rows = matrix.get_rows(), columns = matrix.get_columns();
+    if (columns != vector.size()) throw MatrixException("incorrect dimension between matrix and vector");
+    std::vector<T> mult(columns);
+    for (size_t i = 0; i < rows; i++) {
+        T rowIter = 0;
+        for (size_t j = 0; j < columns; j++) {
+            rowIter += matrix[i][j] * vector[j];
+        }
+        mult[i] = rowIter;
+    }
+    return mult;
+}
+
 #endif //ASSIGNMENT_2_MATRIX_OPS_H

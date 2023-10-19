@@ -14,7 +14,6 @@ TEST(MatrixDetTest, NotZeroDetIdentity) {
     Fraction actual_value = gaussianElimination.determinant();
     Fraction expected_value = 1;
 
-
     // Then
     ASSERT_EQ(actual_value, expected_value);
 }
@@ -34,7 +33,6 @@ TEST(MatrixDetTest, NotZeroDet) {
     Fraction actual_value = gaussianElimination.determinant();
     Fraction expected_value = 5137;
 
-
     // Then
     ASSERT_EQ(actual_value, expected_value);
 }
@@ -52,9 +50,8 @@ TEST(MatrixDetTest, ZeroDet) {
     input_matrix >> matrix;
     try {
         GaussianElimination<Fraction> gaussianElimination(matrix);
-        Fraction actual_value = gaussianElimination.determinant();
         FAIL();
-    } catch (std::exception& ex) {
+    } catch (std::exception &ex) {
         // Then
         EXPECT_STREQ("Matrix is singular", ex.what());
     }
