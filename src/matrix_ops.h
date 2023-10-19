@@ -18,7 +18,7 @@ Matrix<T> get_identity(const size_t& rows, const size_t& columns) {
 template<typename T>
 Matrix<T> get_augmented(const Matrix<T>& matrix) {
     size_t rows = matrix.get_rows(), columns = matrix.get_columns();
-    if (rows != columns) throw MatrixException("count of size not equal to count of size");
+    if (rows != columns) throw MatrixException("count of rows not equal to count of columns");
     Matrix<T> identity = get_identity<T>(rows, columns);
     Matrix<T> augmented(rows, columns * 2);
     for (size_t i = 0; i < rows; i++) {
@@ -28,6 +28,20 @@ Matrix<T> get_augmented(const Matrix<T>& matrix) {
         }
     }
     return augmented;
+}
+
+template<typename T>
+Matrix<T> get_augmented_RHS(Matrix<T>& matrix, const std::vector<T>& rhs_values) {
+    size_t rows = matrix.get_rows(), columns = matrix.get_columns();
+    if (rows != rhs_values.size()) throw MatrixException("incorrect dimension between matrix and vector");
+    Matrix<T> augmented_rhs(rows, columns + 1);
+    for (size_t i = 0; i < rows; i++) {
+        for (size_t j = 0; j < columns; j++) {
+            augmented_rhs[i][j] = matrix[i][j];
+        }
+        augmented_rhs[i][columns] = rhs_values[i];
+    }
+    return augmented_rhs;
 }
 
 #endif //ASSIGNMENT_2_MATRIX_OPS_H
