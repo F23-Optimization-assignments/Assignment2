@@ -37,17 +37,7 @@ TEST(SimplexOptimumTest, IncorrectInput2) {
     EXPECT_EQ(solution.is_final(), false);
     EXPECT_EQ(solution.is_unbounded(), false);
 }
-/*
-0
-6 3
--2 3 -6 -1 0 0
-2 1 -2 1 0 0
-1 2 4 0 1 0
-1 -1 2 0 0 1
-24 22 10
-3 4 5
-0.0001
- */
+
 TEST(SimplexOptimumTest, Example1) {
 // Define the input data for the Simplex function
     std::vector<Fraction> coeffs = {-2, 3, -6, -1, 0, 0};
@@ -69,19 +59,7 @@ TEST(SimplexOptimumTest, Example1) {
     EXPECT_EQ(solution.is_unbounded(), false);
     EXPECT_EQ(solution.get_optimum(), expected_optimum);
 }
-/*
 
-
-0
-6 2
--6 -8 -5 -9 0 0
-2 1 1 3 1 0
-1 3 1 2 0 1
-5 3
-4 5
-0.00001
-
- */
 TEST(SimplexOptimumTest, Example2) {
     std::vector<Fraction> coeffs = {-6, -8, -5, -9, 0, 0};
     Matrix<Fraction> m(2, 6);
@@ -100,18 +78,6 @@ TEST(SimplexOptimumTest, Example2) {
     EXPECT_EQ(solution.get_optimum(), expected_optimum);
 }
 
-/**
-0
-6 4
--2 -1 0 0 0 0
-2 1 1 0 0 0
-2 3 0 1 0 0
-4 1 0 0 1 0
-1 5 0 0 0 1
-4 3 5 1
-2 3 4 5
-0.0001
- */
 TEST(SimplexOptimumTest, Example3) {
     std::vector<Fraction> coeffs = {-2, -1, 0, 0, 0, 0};
     Matrix<Fraction> m(4, 6);
@@ -130,18 +96,6 @@ TEST(SimplexOptimumTest, Example3) {
     EXPECT_EQ(solution.get_optimum(), expected_optimum);
 }
 
-/**
-0
-6 3
--2 -3 -4 0 0 0
-0 -2 -3 -1 0 0
-1 1 2 0 1 0
-1 2 3 0 0 1
--5 4 7
-3 4 5
-0.00001
- */
-
 TEST(SimplexOptimumTest, Example4) {
     std::vector<Fraction> coeffs = {-2, -3, -4, 0, 0, 0};
     Matrix<Fraction> m(3, 6);
@@ -158,17 +112,6 @@ TEST(SimplexOptimumTest, Example4) {
     EXPECT_EQ(solution.is_final(), false);
     EXPECT_EQ(solution.is_unbounded(), false);
 }
-
-/**
-0
-4 2
--2 -1 0 0
-1 -1 1 0
-2 0 0 1
-10 40
-2 3
-0.00001
- */
 
 TEST(SimplexOptimumTest, Example5) {
     std::vector<Fraction> coeffs = {-2, -1, 0, 0};
@@ -207,10 +150,6 @@ TEST(SimplexOptimumTest, ExampleFromAss2_1) {
     EXPECT_EQ(solution.get_optimum(), expected_optimum);
 }
 
-/*
-
- */
-
 TEST(SimplexOptimumTest, ExampleFromAss2_2) {
     std::vector<Fraction> coeffs = {8, 6, 3, -2, 0, 0, 0};
     Matrix<Fraction> m(3, 7);
@@ -231,16 +170,6 @@ TEST(SimplexOptimumTest, ExampleFromAss2_2) {
     EXPECT_EQ(solution.get_optimum(), expected_optimum);
 }
 
-/**
- 0
- 5 2
- -4 12 0 0 0
- 2 2 4 1 0
- 2 -2 3 0 1
- 2 1
- 3 4
- 0.00001
- */
 TEST(SimplexOptimumTest, ExampleFromReport1) {
     std::vector<Fraction> coeffs = {-4, 12, 0, 0, 0};
     Matrix<Fraction> m(2, 5);

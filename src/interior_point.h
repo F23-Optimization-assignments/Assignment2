@@ -8,6 +8,7 @@
 #include "usefulEnums.h"
 
 #define MAX_INIT_NUMBER 100.0
+#define MAX_ITERATIONS_COUNT 100000
 
 template<typename T>
 class InteriorPoint {
@@ -27,6 +28,8 @@ private:
     std::vector<T> solution_;
     std::vector<T> c_;
     std::vector<T> cp;
+
+    size_t iterations;
 
     void clear_solution() {
         for (T& num : solution) {
@@ -155,6 +158,8 @@ private:
     }
 
     bool iterate() {
+        iterations++;
+
         // Step 2
         A_ = A * D;
         c_ = multiply(D, c);
@@ -225,14 +230,19 @@ public:
             accuracy(accuracy),alpha(alpha), basic(basic),
             D(coefficients.size()), P(coefficients.size()),
             A_(A.get_rows(), A.get_columns()), solution(coefficients.size()),
-            solution_(coefficients.size()), c_(coefficients.size()), cp(coefficients.size()) {
+            solution_(coefficients.size()), c_(coefficients.size()), cp(coefficients.size()),
+            iterations(0) {
         D = get_identity<T>(coefficients.size(), coefficients.size());
         if (obj == 0) invert_coefficients();
     }
 
     std::vector<T> solve() {
         initial_step();
-        while (iterate());
+        while (iterate()) {
+            if (iterations > MAX_ITERATIONS_COUNT) {
+                throw MatrixException("Solution is unbounded!");
+            }
+        }
         return solution;
     }
 
