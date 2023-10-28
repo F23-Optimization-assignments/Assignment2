@@ -15,6 +15,14 @@ public:
 };
 
 template<typename T>
+void print_vector(const std::vector<T> &vec) {
+    for (const T &elem : vec) {
+        std::cout << elem << " ";
+    }
+    std::cout << "\n";
+}
+
+template<typename T>
 T dot_product(const std::vector<T>& a, const std::vector<T>& b) {
     if (a.size() != b.size()) {
         throw VectorException("incompatible vectors' sizes for dot product");

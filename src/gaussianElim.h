@@ -162,7 +162,7 @@ public:
         return det;
     }
 
-    std::vector<T> solve(const std::vector<T>& rhs_values) {
+    std::vector<T> solve(const std::vector<T> &rhs_values) {
         augmented_matrix = get_augmented_RHS(original_matrix, rhs_values);
         direct_way();
         way_back();

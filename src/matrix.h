@@ -137,7 +137,7 @@ public:
     }
 
     /**
-     * Method return transposed matrix of original one, do not change something in the original matrix
+     * Method return transposed matrix of original one, do not change anything in the original matrix
      * @return new transposed matrix
      */
     Matrix<T> transpose() {
