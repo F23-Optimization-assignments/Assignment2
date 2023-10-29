@@ -8,13 +8,13 @@
 
 class Fraction {
 private:
-    int p, q;
+    long long p, q;
 
     void simplify() {
         bool sign = (p < 0) ^ (q < 0);
         p = std::abs(p);
         q = std::abs(q);
-        int g = std::gcd(p, q);
+        long long g = std::gcd(p, q);
         p /= g;
         q /= g;
         p *= (sign ? -1 : 1);
@@ -24,8 +24,8 @@ private:
     friend std::istream& operator>>(std::istream& stream, Fraction& fraction);
 
 public:
-    Fraction(int p, int q) : p(p), q(q) { simplify(); }
-    Fraction(int p) : Fraction(p, 1) { }
+    Fraction(long long p, long long q) : p(p), q(q) { simplify(); }
+    Fraction(long long p) : Fraction(p, 1) { }
     Fraction() : Fraction(0) { }
 
     Fraction& operator*=(const Fraction& other) {
@@ -53,8 +53,8 @@ public:
     }
 
     Fraction& operator+=(const Fraction& other) {
-        int l = std::lcm(q, other.q);
-        int mp = l / q;
+        long long l = std::lcm(q, other.q);
+        long long mp = l / q;
         p *= mp;
         q *= mp;
         p += (l / other.q) * other.p;
@@ -68,8 +68,8 @@ public:
     }
 
     Fraction& operator-=(const Fraction& other) {
-        int l = std::lcm(q, other.q);
-        int mp = l / q;
+        long long l = std::lcm(q, other.q);
+        long long mp = l / q;
         p *= mp;
         q *= mp;
         p -= (l / other.q) * other.p;
@@ -87,8 +87,8 @@ public:
     }
 
     bool operator<(const Fraction& other) const {
-        int l = std::lcm(q, other.q);
-        int lp = p * (l / q), rp = other.p * (l / other.q);
+        long long l = std::lcm(q, other.q);
+        long long lp = p * (l / q), rp = other.p * (l / other.q);
         return lp < rp;
     }
 
@@ -126,6 +126,10 @@ public:
 
     bool operator>=(const int& other) const {
         return *this >= Fraction(other);
+    }
+
+    explicit operator double() const {
+        return (double) p / (double) q;
     }
 };
 
